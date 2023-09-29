@@ -1,16 +1,12 @@
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
-dac=[1,1,2]
+dac=[8,11,7,1,0,5,12,6]
 
 GPIO.setup(dac, GPIO.OUT)
 
 def dec2bin(n):
-    n=int(bin(n)[2::])
-    if n>=100000000:
-        n=str(n)[-8::]
-    elif n<10000000:
-        n='0'*(8-len(str(n)))+str(n)
-    return n
+    
+    return [int(elem) for elem in bin(n)[2:].zfill(8)]
 
 try:
     while True:
@@ -27,9 +23,3 @@ try:
 finally:
     GPIO.output(dac, 0)
     GPIO.cleanup()
-
-
-
-
-GPIO.output(23, 0)
-GPIO.output(23, 1)

@@ -1,12 +1,15 @@
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(24, GPIO.OUT)
-GPIO.setup(21, 20,16, 12, 17, 8, 25, GPIO.OUT, initial=1)# другие будут гореть как обычно
+dac=[8,11,7,1,0,5,12,6]
+GPIO.setup(dac, GPIO.OUT)
+print(dac[:-1])
+GPIO.output(dac[:-1], 1)# другие будут гореть как обычно
 
-p = GPIO.PWM(24, 0.5)# второе значение это частота
-p.start(50)# коэфицент сколько процентов от времени будет гореть
+p = GPIO.PWM(6, 0.5)# второе значение это частота
+p.start(25)# коэфицент сколько процентов от времени будет гореть
 input('Press return to stop:')   # use raw_input for Python 2
 p.stop()
+GPIO.output(dac, 0)
 GPIO.cleanup()
 
 # в 3 задании нужно будет подключить измерение нарпяжения к конденсатору и можно будет задавать на нем напряжение при
